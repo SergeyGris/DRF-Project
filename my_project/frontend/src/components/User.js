@@ -1,8 +1,12 @@
-import React from "react";
+import React from 'react'
+
 
 const UserItem = ({user}) => {
     return (
         <tr>
+            <td>
+                {user.email}
+            </td>
             <td>
                 {user.username}
             </td>
@@ -12,37 +16,32 @@ const UserItem = ({user}) => {
             <td>
                 {user.lastname}
             </td>
-            <td>
-                {user.birthday}
-            </td>
-            <td>
-                {user.email}
-            </td>
         </tr>
     )
+
 }
+
 
 const UserList = ({users}) => {
     return (
-        <table>
-            <th>
-                Username
-            </th>
-            <th>
-                First name
-            </th>
-            <th>
-                Last name
-            </th>
-            <th>
-                Birthday
-            </th>
-            <th>
-                email
-            </th>
-            {users.map((user) => <UserItem user={user} />)}
-        </table>
-    )
+        <table className="table">
+            <thead className="table-dark">
+            <table className="table">
+                <thead className="table-dark">
+                <tr>
+                    <th scope="col">Электронный адрес</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Фамилия</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {users.map((user) => <UserItem user={user}/>)}
+                    {users.map((user) => <UserItem user={user} key={`user${user.username}`}/>)}
+                </tbody>
+            </table>
+        )
 }
+
 
 export default UserList
