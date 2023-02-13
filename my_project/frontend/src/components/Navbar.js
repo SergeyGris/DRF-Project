@@ -1,22 +1,28 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 class Navbar extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            isAuthorized: false
-        }
-    }
 
     render() {
+        const isAuthenticated = this.props.isAuthenticated
+        let navbar_button
+        if (isAuthenticated) {
+            navbar_button = <div className="dropdown float-end">
+                                <a className="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">{this.props.authenticatedUser}</a>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#" onClick={() => this.props.logout()}>Log Out</a></li>
+                                </ul>
+                            </div>
+        } else {
+            navbar_button = <button type="button" className="btn btn-primary float-end" data-bs-toggle="modal" data-bs-backdrop="false" data-bs-target="#exampleModalCenter">Sing In</button>
+        }
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container">
                     <Link className="navbar-brand" to="/">TODO List App</Link>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                            aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
@@ -33,6 +39,7 @@ class Navbar extends React.Component {
                             </li>
                         </ul>
                     </div>
+                    {navbar_button}
                 </div>
             </nav>
         );
@@ -40,4 +47,3 @@ class Navbar extends React.Component {
 }
 
 export default Navbar
-

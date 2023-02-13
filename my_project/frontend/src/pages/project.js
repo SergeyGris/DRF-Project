@@ -1,8 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
-import {useParams} from 'react-router-dom'
 
-import {ProjectDetailed} from '../components/Project.js'
+import { ProjectDetailed } from '../components/Project.js'
 
 
 class ProjectPage extends Component {
@@ -14,21 +13,22 @@ class ProjectPage extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://127.0.0.1/api/projects/' + this.props.match.params.id + '/')
+        const headers = this.props.headers
+        axios.get('http://127.0.0.1/api/projects/' + this.props.match.params.id + '/', { headers })
             .then(response => {
-                    const project = response.data
-                    this.setState({
-                        'project': project
-                    })
-                }
-            ).catch(error => console.log(error))
+                const project = response.data
+                this.setState({
+                    'project': project
+                })
+            }
+        ).catch(error => console.log(error))
     }
 
     render() {
         return (
             <section className='TODOListProjectPage container'>
                 <h1>Страница проекта: {this.state.project.name}</h1>
-                <ProjectDetailed project={this.state.project}/>
+                <ProjectDetailed project={this.state.project} />
             </section>
         )
     }
