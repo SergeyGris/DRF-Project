@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 
-import {ProjectList} from '../components/Project.js'
+import { ProjectList } from '../components/Project.js'
 
 
 class ProjectsPage extends Component {
@@ -13,21 +13,22 @@ class ProjectsPage extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://127.0.0.1/api/projects/')
+        const headers = this.props.headers
+        axios.get('http://127.0.0.1/api/projects/', { headers })
             .then(response => {
-                    const projects = response.data.results
-                    this.setState({
-                        'projects': projects
-                    })
-                }
-            ).catch(error => console.log(error))
+                const projects = response.data.results
+                this.setState({
+                    'projects': projects
+                })
+            }
+        ).catch(error => console.log(error))
     }
 
     render() {
         return (
             <section className='TODOListProjectsPage container'>
                 <h1>Список проектов</h1>
-                <ProjectList projects={this.state.projects}/>
+                <ProjectList projects={this.state.projects} />
             </section>
         )
     }

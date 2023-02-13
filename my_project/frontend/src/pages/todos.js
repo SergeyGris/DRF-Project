@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 
 import ToDoList from '../components/ToDo.js'
@@ -13,21 +13,22 @@ class ToDosPage extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://127.0.0.1/api/todos/')
+        const headers = this.props.headers
+        axios.get('http://127.0.0.1/api/todos/', { headers })
             .then(response => {
-                    const todos = response.data.results
-                    this.setState({
-                        'todos': todos
-                    })
-                }
-            ).catch(error => console.log(error))
+                const todos = response.data.results
+                this.setState({
+                    'todos': todos
+                })
+            }
+        ).catch(error => console.log(error))
     }
 
     render() {
         return (
             <section className='TODOListToDosPage container'>
                 <h1>Список ToDo</h1>
-                <ToDoList todos={this.state.todos}/>
+                <ToDoList todos={this.state.todos} />
             </section>
         )
     }
